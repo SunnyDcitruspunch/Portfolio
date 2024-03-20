@@ -42,5 +42,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/three": "^0.162.0",
+    "react-router-dom": "^5.3.3",
+    "three": "^0.162.0"
   }
 }
