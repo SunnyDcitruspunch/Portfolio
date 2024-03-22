@@ -1,5 +1,6 @@
 import React, { Component, ReactElement } from 'react'
 import IHomePresenter from './Presenter/IHomePresenter'
+import './style.scss'
 
 type Props = {
   presenter: IHomePresenter
@@ -7,13 +8,13 @@ type Props = {
 
 class Home extends Component<Props> {
   componentDidMount(): void {
-    this.props.presenter.initialize()
-    // this.props.presenter.animate()
   }
 
   render(): ReactElement {
     return (
-      <div id='home'></div>
+      <div id='home'>
+        <h1 className='kanit-black'>Hi. Welcome :)</h1>
+      </div>
     )
   }
 }
