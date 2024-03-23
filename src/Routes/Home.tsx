@@ -1,23 +1,23 @@
 import React, { Component, ReactElement } from 'react'
 import './style.scss'
 
-const DEBOUNCE_DURATION = 30
+const THROTTLE_DURATION = 200;
 
 class Home extends Component {
-  private debounceTimeOut: NodeJS.Timeout | null
+  private isThrottled: boolean;
 
   constructor(props: any) {
-    super(props)
+    super(props);
 
-    this.debounceTimeOut = null
+    this.isThrottled = false;
   }
 
   componentDidMount(): void {
-    window.addEventListener('wheel', this.handleScroll);
+    window.addEventListener('wheel', this.handleScrollThrottle);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('wheel', this.handleScroll);
+    window.removeEventListener('wheel', this.handleScrollThrottle);
   }
 
   render(): ReactElement {
@@ -44,26 +44,34 @@ class Home extends Component {
     )
   }
 
-  handleScroll = (event: WheelEvent): void => {
-    const target = event.target as HTMLElement
+  handleScrollThrottle = (event: WheelEvent): void => {
+    const target = event.target as HTMLElement;
 
     if (target.parentElement?.className === 'right-columns') {
-      const { deltaY } = event;
-      const isScrollingToShowNextPage = deltaY > 0;
+      if (!this.isThrottled) {
+        this.isThrottled = true;
 
-      const experience = document.getElementById('experience');
-      const projects = document.getElementById('projects');
-      clearTimeout(this.debounceTimeOut as any);
+        setTimeout(() => {
+          this.handleScroll(event);
+          this.isThrottled = false;
+        }, THROTTLE_DURATION);
+      }
+    }
+  };
 
-      this.debounceTimeOut = setTimeout(() => {
-        if (experience && projects) {
-          if (isScrollingToShowNextPage) {
-            this.handleShowNextPage()
-          } else if (!isScrollingToShowNextPage) {
-            this.handleShowPrevPage()
-          }
-        }
-      }, DEBOUNCE_DURATION)
+  handleScroll = (event: WheelEvent): void => {
+    const { deltaY } = event;
+    const isScrollingToShowNextPage = deltaY > 0;
+
+    const experience = document.getElementById('experience');
+    const projects = document.getElementById('projects');
+
+    if (experience && projects) {
+      if (isScrollingToShowNextPage) {
+        this.handleShowNextPage();
+      } else {
+        this.handleShowPrevPage();
+      }
     }
   };
 
@@ -104,4 +112,4 @@ class Home extends Component {
   }
 }
 
-export default Home 
+export default Home
