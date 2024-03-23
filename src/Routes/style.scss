@@ -20,7 +20,7 @@ $name-font-size: 60px;
   background-color: var(--third-color);
   height: $name-font-size;
   position: absolute;
-  right: -20px;
+  right: -10px;
   top: 28px;
   width: 242px;
   z-index: -1;
@@ -61,7 +61,7 @@ $name-font-size: 60px;
   transition: bottom 1s ease;
 }
 
-#welcome {
+#welcome, #intro {
   align-items: center;
   background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
   background-position: center;
@@ -71,23 +71,33 @@ $name-font-size: 60px;
   object-fit: cover;
 }
 
+#intro {
+  align-items: center;
+  background-color: transparent;
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+
 #about-me {
   @extend .right-column;
-  top: 0;
-  z-index: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 #experience {
   @extend .right-column;
-  z-index: 1;
+  z-index: 2;
 }
 
 #projects {
   @extend .right-column;
-  z-index: 2;
+  z-index: 3;
 }
 
-#experience.hidden, #projects.hidden {
+#about-me.hidden, #experience.hidden, #projects.hidden {
   bottom: -100%;
 }
 
@@ -96,7 +106,26 @@ $name-font-size: 60px;
 }
 
 @media only screen and (max-width: 600px) {
+  #about-me {
+    bottom: 0;
+  }
+
   .home {
     grid-template-columns: 1fr;
+  }
+
+  .name-background {
+    height: 45px;
+    right: -12px;
+    top: 39px;
+    width: 209px;
+  }
+
+  #intro {
+    display: flex;
+  }
+
+  #welcome {
+    display: none;
   }
 }
