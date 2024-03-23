@@ -1,9 +1,42 @@
+$name-font-size: 60px;
+
 .home {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   margin: auto;
   overflow-y: hidden;
+}
+
+.home-name {
+  font-size: $name-font-size;
+}
+
+.name-wrapper {
+  position: relative;
+}
+
+.name-background {
+  background-color: var(--third-color);
+  height: $name-font-size;
+  position: absolute;
+  right: -20px;
+  top: 28px;
+  width: 242px;
+  z-index: -1;
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+.icons img {
+  height: 40px;
+}
+.icons a:hover {
+  cursor: pointer;
 }
 
 .right-columns {

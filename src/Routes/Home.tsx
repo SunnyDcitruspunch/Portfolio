@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import images from '../Commons/images';
 import './style.scss';
 
 const THROTTLE_DURATION = 700;
@@ -34,20 +35,38 @@ class Home extends Component {
     return (
       <div className='home'>
         <div id='welcome'>
-          <div>
-            <h1 className='kanit-black'>Hi. I'm Sunny!</h1>
-            <p>Let's connect :))</p>
+          <div className='name-wrapper'>
+            <div>
+              <h1 className='kanit-regular home-name'>Hi. I'm Sunny!</h1>
+              <div className='name-background' />
+            </div>
+            <div className='icons'>
+              <a
+                href='https://www.linkedin.com/in/yangsunnyd/'
+                target='_blank'
+                referrerPolicy='no-referrer'
+                rel='noreferrer'>
+                <img alt='linkedin' src={images.linkedIn} />
+              </a>
+              <a
+                href='https://github.com/SunnyDcitruspunch'
+                target='_blank'
+                referrerPolicy='no-referrer'
+                rel='noreferrer'>
+                <img alt='github' src={images.github} />
+              </a>
+            </div>
           </div>
         </div>
         <div className='right-columns'>
           <div id='about-me' className={`purple-background ${isAboutMeVisible ? '' : 'hidden'}`}>
-            <h1 className='kanit-black'>About Me 2</h1>
+            <h2 className='kanit-black'>About Me 2</h2>
           </div>
           <div id='experience' className={`yellow-background ${isExperienceVisible ? '' : 'hidden'}`}>
-            <h1 className='kanit-black'>Experience</h1>
+            <h2 className='kanit-black'>Experience</h2>
           </div>
           <div id='projects' className={`purple-background ${isProjectsVisible ? '' : 'hidden'}`}>
-            <h1 className='kanit-black'>Projects / Work</h1>
+            <h2 className='kanit-black'>Projects / Work</h2>
           </div>
         </div>
       </div>
@@ -66,19 +85,23 @@ class Home extends Component {
   };
 
   handleScroll = (event: WheelEvent): void => {
-    this.setState({ isTransitioning: true });
-    const { deltaY } = event;
-    const isScrollingToShowNextPage = deltaY > 0;
+    const target = event.target as HTMLElement
 
-    if (isScrollingToShowNextPage) {
-      this.handleShowNextPage();
-    } else {
-      this.handleShowPrevPage();
+    if (target.parentElement?.className === 'right-columns') {
+      this.setState({ isTransitioning: true });
+      const { deltaY } = event;
+      const isScrollingToShowNextPage = deltaY > 0;
+
+      if (isScrollingToShowNextPage) {
+        this.handleShowNextPage();
+      } else {
+        this.handleShowPrevPage();
+      }
+
+      setTimeout(() => {
+        this.setState({ isTransitioning: false });
+      }, TRANSITION_TIME);
     }
-
-    setTimeout(() => {
-      this.setState({ isTransitioning: false });
-    }, TRANSITION_TIME);
   };
 
   handleShowNextPage = (): void => {
