@@ -146,7 +146,7 @@ class Home extends Component {
   }
 
   handleShowPrevPage = (): void => {
-    if (this.isCurrentShowingAboutMeTab()) {
+    if (this.isCurrentShowingAboutMeTab() && window.innerWidth <= MOBILE_BREAKPOINT) {
       this.setState({ isAboutMeVisible: false });
     } else if (this.isCurrentShowingProjectsTab()) {
       this.setState({ isProjectsVisible: false });
