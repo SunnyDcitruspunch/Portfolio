@@ -8,6 +8,7 @@ const TRANSITION_TIME = THROTTLE_DURATION * 2;
 
 class Home extends Component {
   private isThrottled: boolean;
+  private startY: number;
 
   state = {
     isIntroVisible: window.innerWidth <= MOBILE_BREAKPOINT ? true : false,
@@ -21,14 +22,19 @@ class Home extends Component {
     super(props);
 
     this.isThrottled = false;
+    this.startY = 0;
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     window.addEventListener('wheel', this.handleScrollEvent);
+    window.addEventListener('touchstart', this.handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
   }
 
-  componentWillUnmount(): void {
+  componentWillUnmount() {
     window.removeEventListener('wheel', this.handleScrollEvent);
+    window.removeEventListener('touchstart', this.handleTouchStart);
+    window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   render(): React.ReactElement {
@@ -43,6 +49,9 @@ class Home extends Component {
                 <p>Sunny!
                   <span className='name-background' />
                 </p>
+              </div>
+              <div className='center-text'>
+                <p className='kanit-regular'>I'm a full stack software engineer</p>
               </div>
             </div>
             <div className='icons'>
@@ -67,8 +76,11 @@ class Home extends Component {
           <div id='intro' className={`yellow-background ${isIntroVisible ? '' : 'hidden'}`}>
             <div className='name-wrapper'>
               <div>
-                <h1 className='kanit-regular home-name'>Hi. I'm Sunny!</h1>
+                <h1 className='kanit-regular home-name center-text'>Hi. I'm Sunny!</h1>
                 <div className='name-background' />
+              </div>
+              <div className='center-text'>
+                <p className='kanit-regular'>I'm a full stack software engineer</p>
               </div>
               <div className='icons'>
                 <a
@@ -102,6 +114,32 @@ class Home extends Component {
     )
   }
 
+  handleTouchStart = (event: TouchEvent) => {
+    this.startY = event.touches[0].clientY;
+  };
+
+  handleTouchMove = (event: TouchEvent) => {
+    if (!this.isThrottled && !this.state.isTransitioning && event.cancelable) {
+      const moveEndY = event.changedTouches[0].clientY;
+      const deltaY = this.startY - moveEndY;
+
+      if (Math.abs(deltaY) > 10) {
+        this.isThrottled = true;
+        if (deltaY > 0) {
+          this.handleShowNextPage();
+        } else {
+          this.handleShowPrevPage();
+        }
+
+        setTimeout(() => {
+          this.isThrottled = false;
+        }, THROTTLE_DURATION);
+
+        event.preventDefault();
+      }
+    }
+  };
+
   handleScrollEvent = (event: WheelEvent) => {
     if (!this.isThrottled && !this.state.isTransitioning) {
       this.isThrottled = true;
@@ -116,7 +154,7 @@ class Home extends Component {
   handleScroll = (event: WheelEvent): void => {
     const target = event.target as HTMLElement
 
-    if (target.parentElement?.className === 'right-columns') {
+    if (target?.parentElement && target.parentElement?.className === 'right-columns') {
       this.setState({ isTransitioning: true });
       const { deltaY } = event;
       const isScrollingToShowNextPage = deltaY > 0;
