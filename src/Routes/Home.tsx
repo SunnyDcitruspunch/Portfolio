@@ -1,7 +1,7 @@
 import React, { Component, ReactElement } from 'react'
 import './style.scss'
 
-const DEBOUNCE_DURATION = 10
+const DEBOUNCE_DURATION = 30
 
 class Home extends Component {
   private debounceTimeOut: NodeJS.Timeout | null
@@ -23,8 +23,11 @@ class Home extends Component {
   render(): ReactElement {
     return (
       <div className='home'>
-        <div id='welcome' className='show'>
-          <h1 className='kanit-black'>Hi. Welcome :)</h1>
+        <div id='welcome'>
+          <div>
+            <h1 className='kanit-black'>Hi. I'm Sunny!</h1>
+            <p>Let's connect :))</p>
+          </div>
         </div>
         <div className='right-columns'>
           <div id='about-me' className='hidden purple-background'>
@@ -42,22 +45,26 @@ class Home extends Component {
   }
 
   handleScroll = (event: WheelEvent): void => {
-    const { deltaY } = event;
-    const isScrollingToShowNextPage = deltaY > 0;
+    const target = event.target as HTMLElement
 
-    const experience = document.getElementById('experience');
-    const projects = document.getElementById('projects');
-    clearTimeout(this.debounceTimeOut as any);
+    if (target.parentElement?.className === 'right-columns') {
+      const { deltaY } = event;
+      const isScrollingToShowNextPage = deltaY > 0;
 
-    this.debounceTimeOut = setTimeout(() => {
-      if (experience && projects) {
-        if (isScrollingToShowNextPage) {
-          this.handleShowNextPage()
-        } else if (!isScrollingToShowNextPage) {
-          this.handleShowPrevPage()
+      const experience = document.getElementById('experience');
+      const projects = document.getElementById('projects');
+      clearTimeout(this.debounceTimeOut as any);
+
+      this.debounceTimeOut = setTimeout(() => {
+        if (experience && projects) {
+          if (isScrollingToShowNextPage) {
+            this.handleShowNextPage()
+          } else if (!isScrollingToShowNextPage) {
+            this.handleShowPrevPage()
+          }
         }
-      }
-    }, DEBOUNCE_DURATION)
+      }, DEBOUNCE_DURATION)
+    }
   };
 
   handleShowNextPage = (): void => {
