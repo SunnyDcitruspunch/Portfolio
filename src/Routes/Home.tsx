@@ -1,7 +1,17 @@
 import React, { Component, ReactElement } from 'react'
 import './style.scss'
 
+const DEBOUNCE_DURATION = 10
+
 class Home extends Component {
+  private debounceTimeOut: NodeJS.Timeout | null
+
+  constructor(props: any) {
+    super(props)
+
+    this.debounceTimeOut = null
+  }
+
   componentDidMount(): void {
     window.addEventListener('wheel', this.handleScroll);
   }
@@ -37,16 +47,17 @@ class Home extends Component {
 
     const experience = document.getElementById('experience');
     const projects = document.getElementById('projects');
+    clearTimeout(this.debounceTimeOut as any);
 
-    if (experience && projects) {
-      console.log('experience, projects', `${isScrollingToShowNextPage ? 'show next' : 'show prev'}`)
-
-      if (isScrollingToShowNextPage) {
-        this.handleShowNextPage()
-      } else if (!isScrollingToShowNextPage) {
-        this.handleShowPrevPage()
+    this.debounceTimeOut = setTimeout(() => {
+      if (experience && projects) {
+        if (isScrollingToShowNextPage) {
+          this.handleShowNextPage()
+        } else if (!isScrollingToShowNextPage) {
+          this.handleShowPrevPage()
+        }
       }
-    }
+    }, DEBOUNCE_DURATION)
   };
 
   handleShowNextPage = (): void => {
