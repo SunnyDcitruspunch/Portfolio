@@ -3,8 +3,8 @@ import images from '../Commons/images';
 import './style.scss';
 
 const MOBILE_BREAKPOINT = 600;
-const THROTTLE_DURATION = 700;
-const TRANSITION_TIME = 1000;
+const THROTTLE_DURATION = 1000;
+const TRANSITION_TIME = THROTTLE_DURATION * 2;
 
 class Home extends Component {
   private isThrottled: boolean;
