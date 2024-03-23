@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import images from '../Commons/images';
 import './style.scss';
 
+const MOBILE_BREAKPOINT = 600;
 const THROTTLE_DURATION = 700;
 const TRANSITION_TIME = 1000;
 
@@ -9,10 +10,11 @@ class Home extends Component {
   private isThrottled: boolean;
 
   state = {
+    isIntroVisible: window.innerWidth <= MOBILE_BREAKPOINT ? true : false,
     isExperienceVisible: false,
     isProjectsVisible: false,
-    isAboutMeVisible: true,
-    isTransitioning: false
+    isAboutMeVisible: window.innerWidth <= MOBILE_BREAKPOINT ? false : true,
+    isTransitioning: false,
   };
 
   constructor(props: any) {
@@ -30,15 +32,18 @@ class Home extends Component {
   }
 
   render(): React.ReactElement {
-    const { isExperienceVisible, isProjectsVisible, isAboutMeVisible } = this.state;
+    const { isExperienceVisible, isIntroVisible, isProjectsVisible, isAboutMeVisible } = this.state;
 
     return (
       <div className='home'>
         <div id='welcome'>
           <div className='name-wrapper'>
             <div>
-              <h1 className='kanit-regular home-name'>Hi. I'm Sunny!</h1>
-              <div className='name-background' />
+              <div className='kanit-regular home-name'>Hi. I'm
+                <p>Sunny!
+                  <span className='name-background' />
+                </p>
+              </div>
             </div>
             <div className='icons'>
               <a
@@ -59,6 +64,30 @@ class Home extends Component {
           </div>
         </div>
         <div className='right-columns'>
+          <div id='intro' className={`yellow-background ${isIntroVisible ? '' : 'hidden'}`}>
+            <div className='name-wrapper'>
+              <div>
+                <h1 className='kanit-regular home-name'>Hi. I'm Sunny!</h1>
+                <div className='name-background' />
+              </div>
+              <div className='icons'>
+                <a
+                  href='https://www.linkedin.com/in/yangsunnyd/'
+                  target='_blank'
+                  referrerPolicy='no-referrer'
+                  rel='noreferrer'>
+                  <img alt='linkedin' src={images.linkedIn} />
+                </a>
+                <a
+                  href='https://github.com/SunnyDcitruspunch'
+                  target='_blank'
+                  referrerPolicy='no-referrer'
+                  rel='noreferrer'>
+                  <img alt='github' src={images.github} />
+                </a>
+              </div>
+            </div>
+          </div>
           <div id='about-me' className={`purple-background ${isAboutMeVisible ? '' : 'hidden'}`}>
             <h2 className='kanit-black'>About Me 2</h2>
           </div>
@@ -69,7 +98,7 @@ class Home extends Component {
             <h2 className='kanit-black'>Projects / Work</h2>
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 
@@ -105,7 +134,9 @@ class Home extends Component {
   };
 
   handleShowNextPage = (): void => {
-    if (this.isCurrentlyShowingExperienceTab()) {
+    if (this.isCurrentShowingIntroTab()) {
+      this.setState({ isAboutMeVisible: true });
+    } else if (this.isCurrentlyShowingExperienceTab()) {
       this.setState({ isProjectsVisible: true });
       return
     } else if (this.isCurrentShowingAboutMeTab()) {
@@ -115,7 +146,9 @@ class Home extends Component {
   }
 
   handleShowPrevPage = (): void => {
-    if (this.isCurrentShowingProjectsTab()) {
+    if (this.isCurrentShowingAboutMeTab()) {
+      this.setState({ isAboutMeVisible: false });
+    } else if (this.isCurrentShowingProjectsTab()) {
       this.setState({ isProjectsVisible: false });
       return
     } else if (this.isCurrentlyShowingExperienceTab()) {
@@ -130,6 +163,10 @@ class Home extends Component {
 
   isCurrentShowingProjectsTab = (): boolean => {
     return this.state.isProjectsVisible;
+  }
+
+  isCurrentShowingIntroTab = (): boolean => {
+    return this.state.isIntroVisible && !this.state.isAboutMeVisible;
   }
 
   isCurrentShowingAboutMeTab = (): boolean => {
