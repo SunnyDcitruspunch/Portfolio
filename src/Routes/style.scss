@@ -1,0 +1,102 @@
+$name-font-size: 60px;
+
+.home {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  margin: auto;
+  overflow-y: hidden;
+}
+
+.home-name {
+  font-size: $name-font-size;
+}
+
+.name-wrapper {
+  position: relative;
+}
+
+.name-background {
+  background-color: var(--third-color);
+  height: $name-font-size;
+  position: absolute;
+  right: -20px;
+  top: 28px;
+  width: 242px;
+  z-index: -1;
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+.icons img {
+  height: 40px;
+}
+.icons a:hover {
+  cursor: pointer;
+}
+
+.right-columns {
+  position: relative;
+}
+
+.right-column {
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  width: 50vw;
+}
+
+#about-me, #experience, #projects {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: bottom 1s ease;
+}
+
+#welcome {
+  align-items: center;
+  background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
+  background-position: center;
+  background-size: 25px 25px;
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
+}
+
+#about-me {
+  @extend .right-column;
+  top: 0;
+  z-index: 0;
+}
+
+#experience {
+  @extend .right-column;
+  z-index: 1;
+}
+
+#projects {
+  @extend .right-column;
+  z-index: 2;
+}
+
+#experience.hidden, #projects.hidden {
+  bottom: -100%;
+}
+
+.hidden {
+  transition: bottom 1s ease;
+}
+
+@media only screen and (max-width: 600px) {
+  .home {
+    grid-template-columns: 1fr;
+  }
+}
