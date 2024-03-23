@@ -1,4 +1,4 @@
-import React, { Component, Fragment, ReactElement } from 'react'
+import React, { Component, ReactElement } from 'react'
 import './style.scss'
 
 class Home extends Component {
@@ -12,38 +12,78 @@ class Home extends Component {
 
   render(): ReactElement {
     return (
-      <Fragment>
-        <section id='welcome' className='show'>
+      <div className='home'>
+        <div id='welcome' className='show'>
           <h1 className='kanit-black'>Hi. Welcome :)</h1>
-        </section>
-        <section id='about-me' className='hidden'>
-          <h1 className='kanit-black'>About Me</h1>
-        </section>
-      </Fragment>
+        </div>
+        <div className='right-columns'>
+          <div id='about-me' className='hidden purple-background'>
+            <h1 className='kanit-black'>About Me 2</h1>
+          </div>
+          <div id='experience' className='hidden yellow-background'>
+            <h1 className='kanit-black'>Experience</h1>
+          </div>
+          <div id='projects' className='hidden purple-background'>
+            <h1 className='kanit-black'>Projects / Work</h1>
+          </div>
+        </div>
+      </div>
     )
   }
 
-  handleScroll = (): void => {
-    const welcome = document.getElementById('welcome')
-    const aboutMe = document.getElementById('about-me')
+  handleScroll = (event: WheelEvent): void => {
+    const { deltaY } = event;
+    const isScrollingToShowNextPage = deltaY > 0;
 
-    if (welcome && aboutMe) {
-      const windowHeight = window.innerHeight;
-      const elements = [welcome, aboutMe]
+    const experience = document.getElementById('experience');
+    const projects = document.getElementById('projects');
 
-      elements.forEach((element: HTMLElement) => {
-        const elementBounds = element.getBoundingClientRect()
+    if (experience && projects) {
+      console.log('experience, projects', `${isScrollingToShowNextPage ? 'show next' : 'show prev'}`)
 
-        if (elementBounds.top < windowHeight / 3 && elementBounds.bottom > windowHeight / 3) {
-          element.classList.add('show');
-          element.classList.remove('hidden');
-        } else {
-          element.classList.add('hidden');
-          element.classList.remove('show');
-        }
-      })
+      if (isScrollingToShowNextPage) {
+        this.handleShowNextPage()
+      } else if (!isScrollingToShowNextPage) {
+        this.handleShowPrevPage()
+      }
     }
   };
+
+  handleShowNextPage = (): void => {
+    const experience = document.getElementById('experience')!;
+    const projects = document.getElementById('projects')!;
+
+    if (this.isCurrentlyShowingExperienceTab()) {
+      projects.classList.remove('hidden');
+    } else {
+      experience.classList.remove('hidden');
+    }
+  }
+
+  isCurrentlyShowingExperienceTab = (): boolean => {
+    const experience = document.getElementById('experience')!;
+    const projects = document.getElementById('projects')!;
+
+    return experience.getBoundingClientRect().top === 0 && Array.from(projects.classList).includes('hidden')
+  }
+
+  isCurrentShowingProjectsTab = (): boolean => {
+    const experience = document.getElementById('experience')!;
+    const projects = document.getElementById('projects')!;
+
+    return experience.getBoundingClientRect().top === 0 && projects.getBoundingClientRect().top === 0
+  }
+
+  handleShowPrevPage = (): void => {
+    const experience = document.getElementById('experience')!;
+    const projects = document.getElementById('projects')!;
+
+    if (this.isCurrentShowingProjectsTab()) {
+      projects.classList.add('hidden');
+    } else if (this.isCurrentlyShowingExperienceTab()) {
+      experience.classList.add('hidden');
+    }
+  }
 }
 
 export default Home 
