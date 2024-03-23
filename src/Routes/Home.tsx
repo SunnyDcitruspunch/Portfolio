@@ -1,10 +1,18 @@
-import React, { Component, ReactElement } from 'react'
-import './style.scss'
+import React, { Component } from 'react';
+import './style.scss';
 
-const THROTTLE_DURATION = 200;
+const THROTTLE_DURATION = 700;
+const TRANSITION_TIME = 1000;
 
 class Home extends Component {
   private isThrottled: boolean;
+
+  state = {
+    isExperienceVisible: false,
+    isProjectsVisible: false,
+    isAboutMeVisible: true,
+    isTransitioning: false
+  };
 
   constructor(props: any) {
     super(props);
@@ -13,14 +21,16 @@ class Home extends Component {
   }
 
   componentDidMount(): void {
-    window.addEventListener('wheel', this.handleScrollThrottle);
+    window.addEventListener('wheel', this.handleScrollEvent);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener('wheel', this.handleScrollThrottle);
+    window.removeEventListener('wheel', this.handleScrollEvent);
   }
 
-  render(): ReactElement {
+  render(): React.ReactElement {
+    const { isExperienceVisible, isProjectsVisible, isAboutMeVisible } = this.state;
+
     return (
       <div className='home'>
         <div id='welcome'>
@@ -30,13 +40,13 @@ class Home extends Component {
           </div>
         </div>
         <div className='right-columns'>
-          <div id='about-me' className='hidden purple-background'>
+          <div id='about-me' className={`purple-background ${isAboutMeVisible ? '' : 'hidden'}`}>
             <h1 className='kanit-black'>About Me 2</h1>
           </div>
-          <div id='experience' className='hidden yellow-background'>
+          <div id='experience' className={`yellow-background ${isExperienceVisible ? '' : 'hidden'}`}>
             <h1 className='kanit-black'>Experience</h1>
           </div>
-          <div id='projects' className='hidden purple-background'>
+          <div id='projects' className={`purple-background ${isProjectsVisible ? '' : 'hidden'}`}>
             <h1 className='kanit-black'>Projects / Work</h1>
           </div>
         </div>
@@ -44,72 +54,64 @@ class Home extends Component {
     )
   }
 
-  handleScrollThrottle = (event: WheelEvent): void => {
-    const target = event.target as HTMLElement;
+  handleScrollEvent = (event: WheelEvent) => {
+    if (!this.isThrottled && !this.state.isTransitioning) {
+      this.isThrottled = true;
+      this.handleScroll(event);
 
-    if (target.parentElement?.className === 'right-columns') {
-      if (!this.isThrottled) {
-        this.isThrottled = true;
-
-        setTimeout(() => {
-          this.handleScroll(event);
-          this.isThrottled = false;
-        }, THROTTLE_DURATION);
-      }
+      setTimeout(() => {
+        this.isThrottled = false;
+      }, THROTTLE_DURATION);
     }
   };
 
   handleScroll = (event: WheelEvent): void => {
+    this.setState({ isTransitioning: true });
     const { deltaY } = event;
     const isScrollingToShowNextPage = deltaY > 0;
 
-    const experience = document.getElementById('experience');
-    const projects = document.getElementById('projects');
-
-    if (experience && projects) {
-      if (isScrollingToShowNextPage) {
-        this.handleShowNextPage();
-      } else {
-        this.handleShowPrevPage();
-      }
+    if (isScrollingToShowNextPage) {
+      this.handleShowNextPage();
+    } else {
+      this.handleShowPrevPage();
     }
+
+    setTimeout(() => {
+      this.setState({ isTransitioning: false });
+    }, TRANSITION_TIME);
   };
 
   handleShowNextPage = (): void => {
-    const experience = document.getElementById('experience')!;
-    const projects = document.getElementById('projects')!;
-
     if (this.isCurrentlyShowingExperienceTab()) {
-      projects.classList.remove('hidden');
-    } else {
-      experience.classList.remove('hidden');
+      this.setState({ isProjectsVisible: true });
+      return
+    } else if (this.isCurrentShowingAboutMeTab()) {
+      this.setState({ isExperienceVisible: true });
+      return
+    }
+  }
+
+  handleShowPrevPage = (): void => {
+    if (this.isCurrentShowingProjectsTab()) {
+      this.setState({ isProjectsVisible: false });
+      return
+    } else if (this.isCurrentlyShowingExperienceTab()) {
+      this.setState({ isExperienceVisible: false });
+      return
     }
   }
 
   isCurrentlyShowingExperienceTab = (): boolean => {
-    const experience = document.getElementById('experience')!;
-    const projects = document.getElementById('projects')!;
-
-    return experience.getBoundingClientRect().top === 0 && Array.from(projects.classList).includes('hidden')
+    return this.state.isExperienceVisible && !this.state.isProjectsVisible;
   }
 
   isCurrentShowingProjectsTab = (): boolean => {
-    const experience = document.getElementById('experience')!;
-    const projects = document.getElementById('projects')!;
-
-    return experience.getBoundingClientRect().top === 0 && projects.getBoundingClientRect().top === 0
+    return this.state.isProjectsVisible;
   }
 
-  handleShowPrevPage = (): void => {
-    const experience = document.getElementById('experience')!;
-    const projects = document.getElementById('projects')!;
-
-    if (this.isCurrentShowingProjectsTab()) {
-      projects.classList.add('hidden');
-    } else if (this.isCurrentlyShowingExperienceTab()) {
-      experience.classList.add('hidden');
-    }
+  isCurrentShowingAboutMeTab = (): boolean => {
+    return this.state.isAboutMeVisible && !this.state.isExperienceVisible;
   }
 }
 
-export default Home
+export default Home;
