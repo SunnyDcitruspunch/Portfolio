@@ -9,6 +9,7 @@
   display: flex;
   height: 15vw;
   justify-content: center;
+  min-height: 150px;
   opacity: 0.9;
   padding: 10px;
 }
@@ -63,8 +64,21 @@
   backface-visibility: hidden;
 }
 
+.mobile-desc {
+  bottom: 0;
+  color: var(--primary-color);
+  display: none;
+  font-size: 20px;
+  position: absolute;
+  padding: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   .project-grids {
     grid-template-columns: 1fr;
+  }
+
+  .mobile-desc {
+    display: block;
   }
 }
