@@ -30,6 +30,14 @@ class Projects extends Component<Props> {
               <p className='project-name kanit-regular'>DataBased</p>
             </div>
           </a>
+          <a href='https://www.behaviorspan.com/'
+            target='_blank'
+            referrerPolicy='no-referrer'
+            rel='noreferrer'>
+            <div className='project'>
+              <p className='project-name kanit-regular'>BehaviorSpan</p>
+            </div>
+          </a>
         </div>
       </div>
     )
