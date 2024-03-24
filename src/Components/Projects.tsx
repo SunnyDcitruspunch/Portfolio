@@ -13,7 +13,7 @@ class Projects extends Component<Props> {
         <div>
           <h2 className='kanit-black'>Projects / Work</h2>
         </div>
-        <div className='project-columns'>
+        <div className='project-grids'>
           <a href='https://www.iva-corp.com/'
             target='_blank'
             referrerPolicy='no-referrer'
@@ -39,7 +39,7 @@ class Projects extends Component<Props> {
             </div>
           </a>
         </div>
-      </div>
+      </div >
     )
   }
 }

@@ -8,21 +8,24 @@
   align-items: center;
   display: flex;
   height: 15vw;
+  justify-content: center;
 }
 
-.project-columns {
-  display: flex;
+.project-grids {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
   gap: 10px;
-  margin: 30px 0;
   padding: 0 10px;
+  margin: 30px 0;
   width: 100%;
 }
-.project-columns a {
+
+.project-grids a {
   background-color: var(--third-color);
-  display: flex;
   flex-grow: 1;
-  justify-content: center;
   opacity: 0.9;
+  padding: 10px;
 }
 
 .project-name {
@@ -32,7 +35,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .project-columns {
-    flex-direction: column;
+  .project-grids {
+    grid-template-columns: 1fr;
   }
 }
