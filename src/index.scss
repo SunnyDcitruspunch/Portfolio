@@ -28,16 +28,15 @@ body {
 }
 
 $primary-color: rgb(230,190,190);
+$primary-color-dark: #B26FC4;
 
 h2 {
-  @extend .text-effect;
-
   font-size: 60px;
   line-height: 1em;
   text-align: center;
 }
 
-.text-effect {
+.text-effect-light {
   @include text3d(
     adjust-color($primary-color, $lightness: -8%), 
     $depth: 8, 
@@ -45,6 +44,16 @@ h2 {
     $shadowopacity: .3);
 
   color: #FFF;
+}
+
+.text-effect-dark {
+  @include text3d(
+    adjust-color($primary-color-dark, $lightness: -8%), 
+    $depth: 4, 
+    $primaryshadowcolor: adjust-color($primary-color-dark, $lightness: -10%, $saturation: +20%),
+    $shadowopacity: .3);
+
+  color: $primary-color-dark;
 }
 
 .center-text {

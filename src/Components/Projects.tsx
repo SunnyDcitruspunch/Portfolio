@@ -12,7 +12,7 @@ class Projects extends Component<Props> {
     return (
       <div id='projects' className={`purple-background ${this.props.isVisible ? '' : 'hidden'}`}>
         <div>
-          <h2 className='kanit-black'>Projects / Work</h2>
+          <h2 className='text-effect-light kanit-black'>Projects / Work</h2>
         </div>
         <div className='project-grids'>
           <a href='https://www.iva-corp.com/'

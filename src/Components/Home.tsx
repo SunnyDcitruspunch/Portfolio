@@ -15,9 +15,9 @@ class Home extends Component {
 
   state = {
     isIntroVisible: window.innerWidth <= MOBILE_BREAKPOINT ? true : false,
-    isExperienceVisible: false,
-    isProjectsVisible: false,
-    isAboutMeVisible: window.innerWidth <= MOBILE_BREAKPOINT ? false : true,
+    isSecondPageVisible: false,
+    isThirdPageVisible: false,
+    isFirstPageVisible: window.innerWidth <= MOBILE_BREAKPOINT ? false : true,
     isTransitioning: false,
   };
 
@@ -40,17 +40,19 @@ class Home extends Component {
     window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
+  // TODO: reorder pages: 1. projects (purple) 2. I am software engineer (yellow) 3. let's connect :) (purple)
   render(): React.ReactElement {
-    const { isExperienceVisible, isIntroVisible, isProjectsVisible, isAboutMeVisible } = this.state;
+    const { isSecondPageVisible, isIntroVisible, isThirdPageVisible, isFirstPageVisible } = this.state;
+    console.log('isSecondPageVisible, isThirdPageVisible, isFirstPageVisible ', isSecondPageVisible, isThirdPageVisible, isFirstPageVisible)
 
     return (
       <div className='home'>
         <div id='welcome'>
           <div className='name-wrapper'>
             <div>
-              <div className='kanit-regular home-name'>Hi. I'm
-                <p>Sunny!</p>
-              </div>
+              <h1 className='kanit-regular home-name'>Hi. I'm
+                <p>Sunny Yang!</p>
+              </h1>
               <div className='center-text'>
                 <p className='kanit-regular home-connect'>Let's connect!</p>
               </div>
@@ -98,9 +100,9 @@ class Home extends Component {
               </div>
             </div>
           </div>
-          <AboutMe isVisible={isAboutMeVisible} />
-          <Experience isVisible={isExperienceVisible} />
-          <Projects isVisible={isProjectsVisible} />
+          <AboutMe isVisible={isFirstPageVisible} />
+          <Projects isVisible={isSecondPageVisible} />
+          <Experience isVisible={isThirdPageVisible} />
         </div>
       </div >
     )
@@ -145,15 +147,19 @@ class Home extends Component {
 
   handleScroll = (event: WheelEvent): void => {
     const target = event.target as HTMLElement
+    console.log('target ', target, target?.parentElement)
 
-    if (target?.parentElement && target.parentElement?.className === 'right-columns') {
+    if (target?.parentElement) {
       this.setState({ isTransitioning: true });
       const { deltaY } = event;
       const isScrollingToShowNextPage = deltaY > 0;
 
       if (isScrollingToShowNextPage) {
+        console.log(100);
+
         this.handleShowNextPage();
       } else {
+        console.log(200);
         this.handleShowPrevPage();
       }
 
@@ -164,43 +170,49 @@ class Home extends Component {
   };
 
   handleShowNextPage = (): void => {
-    if (this.isCurrentShowingIntroTab()) {
-      this.setState({ isAboutMeVisible: true });
-    } else if (this.isCurrentlyShowingExperienceTab()) {
-      this.setState({ isProjectsVisible: true });
+    console.log(5);
+
+    if (this.isCurrentShowingIntro()) {
+      console.log(0);
+
+      this.setState({ isFirstPageVisible: true });
+    } else if (this.isCurrentlyShowingSecondPage()) {
+      console.log(1);
+      this.setState({ isThirdPageVisible: true });
       return
-    } else if (this.isCurrentShowingAboutMeTab()) {
-      this.setState({ isExperienceVisible: true });
+    } else if (this.isCurrentShowingFirstPage()) {
+      console.log(2);
+      this.setState({ isSecondPageVisible: true });
       return
     }
   }
 
   handleShowPrevPage = (): void => {
-    if (this.isCurrentShowingAboutMeTab() && window.innerWidth <= MOBILE_BREAKPOINT) {
-      this.setState({ isAboutMeVisible: false });
-    } else if (this.isCurrentShowingProjectsTab()) {
-      this.setState({ isProjectsVisible: false });
+    if (this.isCurrentShowingFirstPage() && window.innerWidth <= MOBILE_BREAKPOINT) {
+      this.setState({ isFirstPageVisible: false });
+    } else if (this.isCurrentShowingThirdPage()) {
+      this.setState({ isThirdPageVisible: false });
       return
-    } else if (this.isCurrentlyShowingExperienceTab()) {
-      this.setState({ isExperienceVisible: false });
+    } else if (this.isCurrentlyShowingSecondPage()) {
+      this.setState({ isSecondPageVisible: false });
       return
     }
   }
 
-  isCurrentlyShowingExperienceTab = (): boolean => {
-    return this.state.isExperienceVisible && !this.state.isProjectsVisible;
+  isCurrentlyShowingSecondPage = (): boolean => {
+    return this.state.isSecondPageVisible && !this.state.isThirdPageVisible;
   }
 
-  isCurrentShowingProjectsTab = (): boolean => {
-    return this.state.isProjectsVisible;
+  isCurrentShowingThirdPage = (): boolean => {
+    return this.state.isThirdPageVisible;
   }
 
-  isCurrentShowingIntroTab = (): boolean => {
-    return this.state.isIntroVisible && !this.state.isAboutMeVisible;
+  isCurrentShowingIntro = (): boolean => {
+    return this.state.isIntroVisible && !this.state.isFirstPageVisible;
   }
 
-  isCurrentShowingAboutMeTab = (): boolean => {
-    return this.state.isAboutMeVisible && !this.state.isExperienceVisible;
+  isCurrentShowingFirstPage = (): boolean => {
+    return this.state.isFirstPageVisible && !this.state.isSecondPageVisible;
   }
 }
 

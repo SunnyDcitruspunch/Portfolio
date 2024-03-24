@@ -9,7 +9,8 @@ class Experience extends Component<Props> {
   render(): ReactElement {
     return (
       <div id='experience' className={`yellow-background ${this.props.isVisible ? '' : 'hidden'}`}>
-        <p className='kanit-regular experience-title'>Let's connect! :)</p>
+        <h2 className='kanit-black experience-title text-effect-dark'>Let's connect!:)</h2>
+        <h2>💬🪄✨🎉</h2>
       </div>
     )
   }
