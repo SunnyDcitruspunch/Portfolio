@@ -12,6 +12,10 @@ $name-font-size: 60px;
   font-size: $name-font-size;
 }
 
+.home-connect {
+  background-color: var(--third-color);
+}
+
 .name-wrapper {
   position: relative;
 }

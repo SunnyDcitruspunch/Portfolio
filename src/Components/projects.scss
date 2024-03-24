@@ -1,0 +1,32 @@
+@import '/src/index.scss';
+
+#projects {
+  flex-direction: column;
+}
+
+.project {
+  align-items: center;
+  display: flex;
+  height: 15vw;
+}
+
+.project-columns {
+  display: flex;
+  gap: 10px;
+  margin: 30px 0;
+  padding: 0 10px;
+  width: 100%;
+}
+.project-columns a {
+  background-color: var(--third-color);
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.project-name {
+  color: var(--primary-color);
+  font-size: 28px;
+  font-weight: 800;
+}

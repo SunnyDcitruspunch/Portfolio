@@ -30,16 +30,21 @@ body {
 $primary-color: rgb(230,190,190);
 
 h2 {
-  color: #FFF;
+  @extend .text-effect;
+
   font-size: 60px;
   line-height: 1em;
   text-align: center;
-  
+}
+
+.text-effect {
   @include text3d(
     adjust-color($primary-color, $lightness: -8%), 
     $depth: 8, 
     $primaryshadowcolor: adjust-color($primary-color, $lightness: -10%, $saturation: +20%),
     $shadowopacity: .3);
+
+  color: #FFF;
 }
 
 .center-text {

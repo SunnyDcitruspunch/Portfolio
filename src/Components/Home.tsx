@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import images from '../Commons/images';
+import Projects from './Projects';
+import Experience from './Experience';
+import AboutMe from './AboutMe';
 import './style.scss';
 
 const MOBILE_BREAKPOINT = 600;
@@ -52,6 +55,7 @@ class Home extends Component {
               </div>
               <div className='center-text'>
                 <p className='kanit-regular'>I'm a full stack software engineer</p>
+                <p className='kanit-regular home-connect'>Let's connect!</p>
               </div>
             </div>
             <div className='icons'>
@@ -100,25 +104,19 @@ class Home extends Component {
               </div>
             </div>
           </div>
-          <div id='about-me' className={`purple-background ${isAboutMeVisible ? '' : 'hidden'}`}>
-            <h2 className='kanit-black'>About Me 2</h2>
-          </div>
-          <div id='experience' className={`yellow-background ${isExperienceVisible ? '' : 'hidden'}`}>
-            <h2 className='kanit-black'>Experience</h2>
-          </div>
-          <div id='projects' className={`purple-background ${isProjectsVisible ? '' : 'hidden'}`}>
-            <h2 className='kanit-black'>Projects / Work</h2>
-          </div>
+          <AboutMe isVisible={isAboutMeVisible} />
+          <Experience isVisible={isExperienceVisible} />
+          <Projects isVisible={isProjectsVisible} />
         </div>
       </div >
     )
   }
 
-  handleTouchStart = (event: TouchEvent) => {
+  handleTouchStart = (event: TouchEvent): void => {
     this.startY = event.touches[0].clientY;
   };
 
-  handleTouchMove = (event: TouchEvent) => {
+  handleTouchMove = (event: TouchEvent): void => {
     if (!this.isThrottled && !this.state.isTransitioning && event.cancelable) {
       const moveEndY = event.changedTouches[0].clientY;
       const deltaY = this.startY - moveEndY;
@@ -140,7 +138,7 @@ class Home extends Component {
     }
   };
 
-  handleScrollEvent = (event: WheelEvent) => {
+  handleScrollEvent = (event: WheelEvent): void => {
     if (!this.isThrottled && !this.state.isTransitioning) {
       this.isThrottled = true;
       this.handleScroll(event);
