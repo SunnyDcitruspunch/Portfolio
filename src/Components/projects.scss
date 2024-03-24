@@ -91,6 +91,10 @@
     top: 30%;
   }
 
+  .flip-card:hover .flip-card-inner {
+    transform: none;
+  }
+
   .project-grids {
     grid-template-columns: 1fr;
   }
