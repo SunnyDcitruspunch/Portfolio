@@ -65,6 +65,9 @@ class Home extends Component {
                 <h1 className='kanit-regular home-name center-text'>Hi. I'm Sunny!</h1>
                 <div className='name-background' />
               </div>
+              <div className='center-text'>
+                <p className='kanit-regular home-connect'>Let's connect!</p>
+              </div>
               <Links />
             </div>
           </div>
