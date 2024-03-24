@@ -27,19 +27,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-$primary-color: rgb(230,190,190);
+$primary-color: #B26FC4;
 
 h2 {
-  color: #FFF;
   font-size: 60px;
   line-height: 1em;
   text-align: center;
-  
+}
+
+.text-effect-light {
   @include text3d(
     adjust-color($primary-color, $lightness: -8%), 
     $depth: 8, 
     $primaryshadowcolor: adjust-color($primary-color, $lightness: -10%, $saturation: +20%),
     $shadowopacity: .3);
+
+  color: #FFF;
+}
+
+.text-effect-dark {
+  @include text3d(
+    adjust-color($primary-color, $lightness: -8%), 
+    $depth: 1, 
+    $primaryshadowcolor: adjust-color($primary-color, $lightness: -10%, $saturation: +20%),
+    $shadowopacity: .1);
+
+  color: $primary-color;
 }
 
 .center-text {

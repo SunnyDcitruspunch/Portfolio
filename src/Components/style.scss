@@ -1,6 +1,11 @@
 $name-font-size: 60px;
 
 .home {
+  --layer-intro-page: 0;
+  --layer-first-page: 1;
+  --layer-second-page: 2;
+  --layer-third-page: 3;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
@@ -8,22 +13,16 @@ $name-font-size: 60px;
   overflow-y: hidden;
 }
 
-.home-name {
+.home-name, .experience-title {
   font-size: $name-font-size;
+}
+
+.home-connect {
+  background-color: var(--third-color);
 }
 
 .name-wrapper {
   position: relative;
-}
-
-.name-background {
-  background-color: var(--third-color);
-  height: $name-font-size;
-  position: absolute;
-  right: -10px;
-  top: 28px;
-  width: 242px;
-  z-index: -1;
 }
 
 .icons {
@@ -61,6 +60,14 @@ $name-font-size: 60px;
   transition: bottom 1s ease;
 }
 
+#experience {
+  flex-direction: column;
+}
+
+.experience-icons {
+  margin-top: 20px;
+}
+
 #welcome, #intro {
   align-items: center;
   background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
@@ -83,18 +90,18 @@ $name-font-size: 60px;
 
 #about-me {
   @extend .right-column;
-  bottom: 0;
+  bottom: var(--layer-intro-page);
   z-index: 1;
 }
 
 #experience {
   @extend .right-column;
-  z-index: 2;
+  z-index: var(--layer-third-page);
 }
 
 #projects {
   @extend .right-column;
-  z-index: 3;
+  z-index: var(--layer-second-page);
 }
 
 #about-me.hidden, #experience.hidden, #projects.hidden {
@@ -112,13 +119,6 @@ $name-font-size: 60px;
 
   .home {
     grid-template-columns: 1fr;
-  }
-
-  .name-background {
-    height: 45px;
-    right: -12px;
-    top: 39px;
-    width: 209px;
   }
 
   #intro {

@@ -1,7 +1,11 @@
 /* eslint global-require: "off" */
 
 const images = {
+  behaviorSpanLogo: require('./Images/behavior_span.svg').default,
+  databasedLogo: require('./Images/databased_logo.svg').default,
+  downloadIcon: require('./Images/download_icon.png'),
   github: require('./Images/github_icon.png'),
+  ivaCorpLogo: require('./Images/iva_logo.svg').default,
   linkedIn: require('./Images/linkedin_icon.png')
 }
 
