@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import images from '../Commons/images';
 import Projects from './Projects';
 import Experience from './Experience';
 import AboutMe from './AboutMe';
+import Links from './Links';
 import './style.scss';
 
 const MOBILE_BREAKPOINT = 600;
@@ -40,10 +40,8 @@ class Home extends Component {
     window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
-  // TODO: reorder pages: 1. projects (purple) 2. I am software engineer (yellow) 3. let's connect :) (purple)
   render(): React.ReactElement {
     const { isSecondPageVisible, isIntroVisible, isThirdPageVisible, isFirstPageVisible } = this.state;
-    console.log('isSecondPageVisible, isThirdPageVisible, isFirstPageVisible ', isSecondPageVisible, isThirdPageVisible, isFirstPageVisible)
 
     return (
       <div className='home'>
@@ -57,22 +55,7 @@ class Home extends Component {
                 <p className='kanit-regular home-connect'>Let's connect!</p>
               </div>
             </div>
-            <div className='icons'>
-              <a
-                href='https://www.linkedin.com/in/yangsunnyd/'
-                target='_blank'
-                referrerPolicy='no-referrer'
-                rel='noreferrer'>
-                <img alt='linkedin' src={images.linkedIn} />
-              </a>
-              <a
-                href='https://github.com/SunnyDcitruspunch'
-                target='_blank'
-                referrerPolicy='no-referrer'
-                rel='noreferrer'>
-                <img alt='github' src={images.github} />
-              </a>
-            </div>
+            <Links />
           </div>
         </div>
         <div className='right-columns'>
@@ -82,22 +65,7 @@ class Home extends Component {
                 <h1 className='kanit-regular home-name center-text'>Hi. I'm Sunny!</h1>
                 <div className='name-background' />
               </div>
-              <div className='icons'>
-                <a
-                  href='https://www.linkedin.com/in/yangsunnyd/'
-                  target='_blank'
-                  referrerPolicy='no-referrer'
-                  rel='noreferrer'>
-                  <img alt='linkedin' src={images.linkedIn} />
-                </a>
-                <a
-                  href='https://github.com/SunnyDcitruspunch'
-                  target='_blank'
-                  referrerPolicy='no-referrer'
-                  rel='noreferrer'>
-                  <img alt='github' src={images.github} />
-                </a>
-              </div>
+              <Links />
             </div>
           </div>
           <AboutMe isVisible={isFirstPageVisible} />
@@ -147,7 +115,6 @@ class Home extends Component {
 
   handleScroll = (event: WheelEvent): void => {
     const target = event.target as HTMLElement
-    console.log('target ', target, target?.parentElement)
 
     if (target?.parentElement) {
       this.setState({ isTransitioning: true });
@@ -155,11 +122,8 @@ class Home extends Component {
       const isScrollingToShowNextPage = deltaY > 0;
 
       if (isScrollingToShowNextPage) {
-        console.log(100);
-
         this.handleShowNextPage();
       } else {
-        console.log(200);
         this.handleShowPrevPage();
       }
 
@@ -170,18 +134,12 @@ class Home extends Component {
   };
 
   handleShowNextPage = (): void => {
-    console.log(5);
-
     if (this.isCurrentShowingIntro()) {
-      console.log(0);
-
       this.setState({ isFirstPageVisible: true });
     } else if (this.isCurrentlyShowingSecondPage()) {
-      console.log(1);
       this.setState({ isThirdPageVisible: true });
       return
     } else if (this.isCurrentShowingFirstPage()) {
-      console.log(2);
       this.setState({ isSecondPageVisible: true });
       return
     }

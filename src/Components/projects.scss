@@ -87,6 +87,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .flip-card-front {
+    top: 30%;
+  }
+
   .project-grids {
     grid-template-columns: 1fr;
   }
