@@ -9,7 +9,7 @@ class AboutMe extends Component<Props> {
   render(): ReactElement {
     return (
       <div id='about-me' className={`purple-background ${this.props.isVisible ? '' : 'hidden'}`}>
-        <h2 className='kanit-black'>About Me 2</h2>
+        <h2 className='kanit-black'>I'm a full stack software engineer</h2>
       </div>
     )
   }

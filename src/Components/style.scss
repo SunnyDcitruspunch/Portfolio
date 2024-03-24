@@ -8,7 +8,7 @@ $name-font-size: 60px;
   overflow-y: hidden;
 }
 
-.home-name {
+.home-name, .experience-title {
   font-size: $name-font-size;
 }
 
@@ -18,16 +18,6 @@ $name-font-size: 60px;
 
 .name-wrapper {
   position: relative;
-}
-
-.name-background {
-  background-color: var(--third-color);
-  height: $name-font-size;
-  position: absolute;
-  right: -10px;
-  top: 28px;
-  width: 242px;
-  z-index: -1;
 }
 
 .icons {
@@ -116,13 +106,6 @@ $name-font-size: 60px;
 
   .home {
     grid-template-columns: 1fr;
-  }
-
-  .name-background {
-    height: 45px;
-    right: -12px;
-    top: 39px;
-    width: 209px;
   }
 
   #intro {

@@ -49,12 +49,9 @@ class Home extends Component {
           <div className='name-wrapper'>
             <div>
               <div className='kanit-regular home-name'>Hi. I'm
-                <p>Sunny!
-                  <span className='name-background' />
-                </p>
+                <p>Sunny!</p>
               </div>
               <div className='center-text'>
-                <p className='kanit-regular'>I'm a full stack software engineer</p>
                 <p className='kanit-regular home-connect'>Let's connect!</p>
               </div>
             </div>
@@ -82,9 +79,6 @@ class Home extends Component {
               <div>
                 <h1 className='kanit-regular home-name center-text'>Hi. I'm Sunny!</h1>
                 <div className='name-background' />
-              </div>
-              <div className='center-text'>
-                <p className='kanit-regular'>I'm a full stack software engineer</p>
               </div>
               <div className='icons'>
                 <a
