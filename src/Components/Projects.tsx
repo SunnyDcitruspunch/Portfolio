@@ -1,6 +1,7 @@
 import React, { Component, ReactElement } from 'react'
 import './style.scss'
 import './projects.scss'
+import images from '../Commons/images'
 
 type Props = {
   isVisible: boolean
@@ -20,7 +21,7 @@ class Projects extends Component<Props> {
             rel='noreferrer'>
             <div className='project flip-card'>
               <div className="flip-card-inner">
-                <p className='flip-card-front project-name kanit-regular'>IVA-CORP</p>
+                <img className='flip-card-front' src={images.ivaCorpLogo} alt='iva-corp' />
                 <p className='flip-card-back project-desc kanit-medium'>Company website built in React.js, TypeScript, and Scss.</p>
                 <p className='mobile-desc kanit-medium'>Company website built in React.js, TypeScript, and Scss.</p>
               </div>
@@ -32,7 +33,7 @@ class Projects extends Component<Props> {
             rel='noreferrer'>
             <div className='project flip-card'>
               <div className="flip-card-inner">
-                <p className='flip-card-front project-name kanit-regular'>DataBased</p>
+                <img className='flip-card-front' src={images.databasedLogo} alt='databased' />
                 <p className='flip-card-back project-desc kanit-medium'>Recruiting platform built in React.js, TypeScript, and Scss.</p>
                 <p className='mobile-desc kanit-medium'>Recruiting platform built in React.js, TypeScript, and Scss.</p>
               </div>
@@ -44,7 +45,7 @@ class Projects extends Component<Props> {
             rel='noreferrer'>
             <div className='project flip-card'>
               <div className="flip-card-inner">
-                <p className='flip-card-front project-name kanit-regular'>BehaviorSpan</p>
+                <img className='flip-card-front' id='behavior-span' src={images.behaviorSpanLogo} alt='behavior-span' />
                 <p className='flip-card-back project-desc kanit-medium'>Company admin portal built in React.js and TypeScript.</p>
                 <p className='mobile-desc kanit-medium'>Company admin portal built in React.js and TypeScript.</p>
               </div>

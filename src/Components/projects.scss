@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+#behavior-span {
+  height: 35px;
+}
+
 .project {
   align-items: center;
   display: flex;
@@ -26,6 +30,10 @@
 
 .project-grids a {
   flex-grow: 1;
+}
+
+.project img {
+  height: 20px;
 }
 
 .project-name {
@@ -56,12 +64,17 @@
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
-  position: absolute;
+.flip-card-front {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
+}
+
+.flip-card-front, .flip-card-back {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  position: absolute;
 }
 
 .mobile-desc {
