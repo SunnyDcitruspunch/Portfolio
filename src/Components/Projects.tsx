@@ -18,24 +18,33 @@ class Projects extends Component<Props> {
             target='_blank'
             referrerPolicy='no-referrer'
             rel='noreferrer'>
-            <div className='project'>
-              <p className='project-name kanit-regular'>IVA-CORP</p>
+            <div className='project flip-card'>
+              <div className="flip-card-inner">
+                <p className='flip-card-front project-name kanit-regular'>IVA-CORP</p>
+                <p className='flip-card-back project-desc kanit-medium'>Company website built in React.js, TypeScript, and Scss.</p>
+              </div>
             </div>
           </a>
           <a href='https://www.product.databased.com/ssologins'
             target='_blank'
             referrerPolicy='no-referrer'
             rel='noreferrer'>
-            <div className='project'>
-              <p className='project-name kanit-regular'>DataBased</p>
+            <div className='project flip-card'>
+              <div className="flip-card-inner">
+                <p className='flip-card-front project-name kanit-regular'>DataBased</p>
+                <p className='flip-card-back project-desc kanit-medium'>Recruiting platform built in React.js, TypeScript, and Scss.</p>
+              </div>
             </div>
           </a>
           <a href='https://www.behaviorspan.com/'
             target='_blank'
             referrerPolicy='no-referrer'
             rel='noreferrer'>
-            <div className='project'>
-              <p className='project-name kanit-regular'>BehaviorSpan</p>
+            <div className='project flip-card'>
+              <div className="flip-card-inner">
+                <p className='flip-card-front project-name kanit-regular'>BehaviorSpan</p>
+                <p className='flip-card-back project-desc kanit-medium'>Company admin portal built in React.js and TypeScript.</p>
+              </div>
             </div>
           </a>
         </div>
