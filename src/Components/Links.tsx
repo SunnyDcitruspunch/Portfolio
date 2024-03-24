@@ -20,7 +20,7 @@ class Links extends Component {
           <img alt='github' src={images.github} />
         </a>
         <a
-          href='https://drive.google.com/file/d/1F39xSizev-3xggI8pOXwRtLko-_RgKRT/view?usp=drive_link'
+          href='https://drive.google.com/file/d/1F39xSizev-3xggI8pOXwRtLko-_RgKRT/view?usp=sharing'
           target='_blank'
           referrerPolicy='no-referrer'
           rel='noreferrer'>
