@@ -16,7 +16,7 @@
 #dunder-mifflin {
   object-fit: cover;
   top: 50%;
-  width: 50%;
+  width: 100%;
 }
 
 .project {
@@ -100,6 +100,10 @@
 @media only screen and (max-width: 600px) {
   .flip-card-front {
     top: 30%;
+  }
+
+  #dunder-mifflin {
+    width: 50%;
   }
 
   .project {
