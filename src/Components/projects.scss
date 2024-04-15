@@ -16,7 +16,7 @@
 #dunder-mifflin {
   object-fit: cover;
   top: 50%;
-  width: 50%;
+  width: 100%;
 }
 
 .project {
@@ -104,6 +104,10 @@
 
   .flip-card:hover .flip-card-inner {
     transform: none;
+  }
+
+  #dunder-mifflin {
+    width: 50%;
   }
   
   .project {
