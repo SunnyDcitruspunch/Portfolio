@@ -2,6 +2,10 @@
 
 #projects {
   flex-direction: column;
+  justify-content: flex-start;
+}
+#projects h2 {
+  margin-bottom: 20px;
 }
 
 #behavior-span {
@@ -98,8 +102,15 @@
     top: 30%;
   }
 
+  .project {
+    min-height: 130px;
+    padding: 4px;
+  }
+
   .project-grids {
+    gap: 2px;
     grid-template-columns: 1fr;
+    margin: 0;
   }
 
   .mobile-desc {
