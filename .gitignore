@@ -6,6 +6,7 @@ firebase-debug.*.log*
 /node_modules
 /.pnp
 .pnp.js
+.firebase
 
 # Firebase cache
 .firebase/
