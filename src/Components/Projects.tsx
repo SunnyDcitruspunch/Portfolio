@@ -27,6 +27,17 @@ class Projects extends Component<Props> {
               </div>
             </div>
           </a>
+          <a href='https://dunder-mifflin-infinity-abe1c.web.app'
+            target='_blank'
+            referrerPolicy='no-referrer'
+            rel='noreferrer'>
+            <div className='project flip-card'>
+              <div className="flip-card-inner">
+                <img className='flip-card-front' id='dunder-mifflin' src={images.dunderMifflinLogo} alt='dunder-mifflin' style={{ height: '100%' }} />
+                <p className='flip-card-back project-desc kanit-medium'>Dunder Mifflin Infinity in Windows xp simulator env built in Vue.</p>
+              </div>
+            </div>
+          </a>
           <a href='https://www.product.databased.com/ssologins'
             target='_blank'
             referrerPolicy='no-referrer'

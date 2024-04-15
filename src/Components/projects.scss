@@ -2,10 +2,21 @@
 
 #projects {
   flex-direction: column;
+  justify-content: flex-start;
+}
+#projects h2 {
+  margin-bottom: 20px;
 }
 
 #behavior-span {
-  height: 35px;
+  height: 50px;
+  width: 90%;
+}
+
+#dunder-mifflin {
+  object-fit: cover;
+  top: 50%;
+  width: 50%;
 }
 
 .project {
@@ -91,8 +102,15 @@
     top: 30%;
   }
 
+  .project {
+    min-height: 130px;
+    padding: 4px;
+  }
+
   .project-grids {
+    gap: 2px;
     grid-template-columns: 1fr;
+    margin: 0;
   }
 
   .mobile-desc {
